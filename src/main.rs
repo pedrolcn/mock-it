@@ -25,11 +25,12 @@ struct Options {
     #[structopt(short, long, default_value = "3000")]
     port: u16,
 
-    /// The respose status code
+    /// The response status code
     #[structopt(long, default_value = "200")]
     status: u16,
 }
 
+#[derive(Clone)]
 struct State {
     response: String,
     status: u16,
@@ -67,7 +68,7 @@ async fn main() -> Result<(), std::io::Error> {
             Method::Put => route.put(handler),
             Method::Patch => route.patch(handler),
             Method::Delete => route.delete(handler),
-            _ => panic!(format!("Method not supported {}", method)),
+            _ => panic!("Method not supported {}", method),
         },
     };
 
